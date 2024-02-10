@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:securenotes/config/route/app_routes.dart';
 import 'package:securenotes/config/theme/app_theme.dart';
 import 'package:securenotes/core/helper/store_bindings.dart';
 
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
       initialBinding: StoreBinding(),
       theme: theme(),
+      getPages: AppPages.pages,
     );
   }
 }
