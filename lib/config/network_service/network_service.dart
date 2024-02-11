@@ -1,11 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:get/get.dart' hide FormData, Response;
+
 import 'package:dio/dio.dart';
-import 'package:securenotes/core/constants/app_colors.dart';
-import 'package:securenotes/core/helper/global_widgets.dart';
+import 'package:get/get.dart' hide FormData, Response;
 import 'package:securenotes/core/helper/logger.dart';
 
 import '../../core/constants/api_endpoints.dart';
@@ -18,7 +15,7 @@ class HttpService {
   static header() => {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Key": "a51e85e75emshc3bd6077a361492p164c58jsnf0775666cde7",
+        "X-RapidAPI-Key": "7b4e17372bmshebc41281994c4f1p105934jsn2565dd226cfa",
         "X-RapidAPI-Host": "task-manager-api3.p.rapidapi.com"
       };
 
@@ -27,19 +24,19 @@ class HttpService {
     return this;
   }
 
-  Future<dynamic> request({required String url, required Method method, params, String? authToken,context}) async {
+  Future<dynamic> request({required String url, required Method method, params, String? authToken, context}) async {
     Response response;
 
     try {
       if (method == Method.POST) {
-        response = await _dio!.post(url,
-            data: params!);
+        response = await _dio!.post(url, data: params!);
       } else if (method == Method.DELETE) {
         response = await _dio!.delete(url);
       } else if (method == Method.PATCH) {
         response = await _dio!.patch(url);
+      }  else if (method == Method.PUT) {
+        response = await _dio!.put(url,data: params);
       } else {
-
         response = await _dio!
             .get(url, queryParameters: params, options: Options(headers: {"Authorization": "Bearer $authToken"}));
       }

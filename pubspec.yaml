@@ -53,6 +53,7 @@ dependencies:
   flutter_svg: ^2.0.9
   google_sign_in: ^6.1.5
   cached_network_image: ^3.2.3
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:

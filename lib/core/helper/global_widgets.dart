@@ -34,6 +34,21 @@ class ButtonLoader extends StatelessWidget {
   }
 }
 
+Widget loaderWidget() {
+  return Container(
+    height: 60,
+    width: 60,
+    padding: EdgeInsets.all(15.0),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    child: const CircularProgressIndicator(
+      color:AppColors.kBSDark,strokeWidth: 2.0,
+    ),
+  );
+}
 
 
 //Success Toast Widget
