@@ -51,6 +51,7 @@ class NoteController extends GetxController {
             CreateNoteModel createNoteModel = CreateNoteModel.fromJson(result.data);
             createLoading(false);
             Get.back();
+            //
             Get.snackbar('Success', "${createNoteModel.message}",
                 backgroundColor: AppColors.success600, colorText: AppColors.white);
           }
