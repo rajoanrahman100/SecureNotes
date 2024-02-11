@@ -219,7 +219,6 @@ class TextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: fillColor ?? AppColors.white,
         filled: true,
-        isDense: isTextFieldDense == false ? false : true,
 
         contentPadding: EdgeInsets.symmetric(
           horizontal: hPadding,
@@ -289,7 +288,7 @@ class PrimaryButtonWidget extends StatelessWidget {
       height: 48,
       minWidth: width,
       onPressed: callback,
-      child: isLoading == true ? const ButtonLoader() : Text("$title",style: bodyMedium16,),
+      child: isLoading == true ? const ButtonLoader() : Text("$title",style: bodyMedium16.copyWith(color: AppColors.white),),
     );
   }
 }

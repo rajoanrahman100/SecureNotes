@@ -1,14 +1,17 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:securenotes/config/route/app_pages.dart';
+import 'package:securenotes/core/constants/app_assets.dart';
 import 'package:securenotes/core/constants/app_colors.dart';
 import 'package:securenotes/core/constants/text_styles.dart';
 import 'package:securenotes/core/helper/global_widgets.dart';
 import 'package:securenotes/core/helper/local_storage.dart';
+import 'package:securenotes/core/helper/size_helper.dart';
+import 'package:securenotes/feature/create_note/controller/note_controller.dart';
+import 'package:securenotes/feature/create_note/widgets/create_note_widget.dart';
 import 'package:securenotes/feature/google_signin/controller/google_sign_in_controller.dart';
 import 'package:securenotes/feature/google_signin/widget/cache_image_widget.dart';
 import 'package:securenotes/feature/google_signin/widget/welcome_dialog.dart';
@@ -22,12 +25,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GoogleSignInController googleSignInController = Get.find<GoogleSignInController>();
+  NoteController noteController = Get.find();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     var arguments = Get.arguments;
+    noteController.getCreatedNote();
     if (arguments != null) {
       log("Argument Value ${arguments["arg1"]} and ${arguments["arg2"]}");
 
@@ -51,47 +56,62 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppSize.initialize(context);
+    double? width = AppSize.screenWidth;
+    double? height = AppSize.screenHeight;
+
     return Scaffold(
-      backgroundColor: AppColors.surfaceColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        centerTitle: true,
-        elevation: 0.0,
-        actions: [
-          PopupMenuButton<String>(
-                surfaceTintColor: AppColors.white,
-                onSelected: (value) {
-                  if (value == 'signOut') {
-                    // Handle sign-out logic
-                    googleSignInController.signOut().then((value){
-                      Get.offAllNamed(Routes.singIn);
-                    });
-                  }
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    const PopupMenuItem<String>(
-                      value: 'signOut',
-                      textStyle: bodyRegular14,
-                      child: Text('Sign Out',),
+        backgroundColor: AppColors.surfaceColor,
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          centerTitle: true,
+          elevation: 0.0,
+          actions: [
+            PopupMenuButton<String>(
+              surfaceTintColor: AppColors.white,
+              onSelected: (value) {
+                if (value == 'signOut') {
+                  // Handle sign-out logic
+                  googleSignInController.signOut().then((value) {
+                    Get.offAllNamed(Routes.singIn);
+                  });
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem<String>(
+                    value: 'signOut',
+                    textStyle: bodyRegular14,
+                    child: Text(
+                      'Sign Out',
                     ),
-                  ];
-                },
-                child: CacheImageWidget(
-                  height: 30,width: 30,
-                  imageUrl: LocalStorage.getPhotoUrl(),
-                ),
+                  ),
+                ];
+              },
+              child: CacheImageWidget(
+                height: 30,
+                width: 30,
+                imageUrl: LocalStorage.getPhotoUrl(),
               ),
-          const Gap(10.0)
-        ],
-        title: Text(
-          "Dashboard",
-          style: bodyMedium16.copyWith(color: AppColors.kBSDark),
+            ),
+            const Gap(10.0)
+          ],
+          title: Text(
+            "Dashboard",
+            style: bodyMedium16.copyWith(color: AppColors.kBSDark),
+          ),
         ),
-      ),
-    );
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            SizedBox(
+              height: height,
+              width: width,
+            ),
+            CreateNoteWidget(width: width),
+          ],
+        ));
   }
 }
-
 
 
