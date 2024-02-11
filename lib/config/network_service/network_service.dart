@@ -1,8 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:get/get.dart' hide FormData, Response;
 import 'package:dio/dio.dart';
+import 'package:securenotes/core/constants/app_colors.dart';
+import 'package:securenotes/core/helper/global_widgets.dart';
 import 'package:securenotes/core/helper/logger.dart';
+
+import '../../core/constants/api_endpoints.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
@@ -16,16 +22,18 @@ class HttpService {
         "X-RapidAPI-Host": "task-manager-api3.p.rapidapi.com"
       };
 
-  Future<dynamic> request({required String url, required Method method, params, String? authToken}) async {
+  Future<HttpService> init() async {
+    _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl, headers: header()));
+    return this;
+  }
+
+  Future<dynamic> request({required String url, required Method method, params, String? authToken,context}) async {
     Response response;
 
     try {
       if (method == Method.POST) {
         response = await _dio!.post(url,
-            data: params!,
-            options: Options(
-              headers: {"Authorization": "Bearer $authToken"},
-            ));
+            data: params!);
       } else if (method == Method.DELETE) {
         response = await _dio!.delete(url);
       } else if (method == Method.PATCH) {
@@ -83,11 +91,7 @@ class HttpService {
           throw Exception(e);
         } else {
           //InvalidLoginResponseModel invalidLoginResponseModel = InvalidLoginResponseModel.fromJson(e.response!.data);
-          // warningToast(
-          //     context: context,
-          //     message: "${invalidLoginResponseModel.errorMessage}",
-          //     backColor: AppConst.kRed,
-          //     position: StyledToastPosition.top);
+          Get.snackbar('Error!', 'Something went wrong');
           log("Bad Response Elseee");
           throw Exception(e);
         }
