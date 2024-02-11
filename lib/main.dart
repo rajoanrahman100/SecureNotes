@@ -15,6 +15,7 @@ void main() async {
   await Firebase.initializeApp();
   await GetStorage.init();
   NotificationService().initNotification();
+  // FirebaseNotificationService.instance.initialize();
   tz.initializeTimeZones();
   runApp(const MyApp());
 }

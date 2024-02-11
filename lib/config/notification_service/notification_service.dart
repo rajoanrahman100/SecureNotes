@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -6,7 +7,22 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  Future initialize() async {
+    await _firebaseMessaging.requestPermission();
+    final fMCToken = await _firebaseMessaging.getToken();
+
+
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      sound: true,
+      badge: true,
+    );
+  }
+
   Future<void> initNotification() async {
+    await _firebaseMessaging.requestPermission();
     AndroidInitializationSettings initializationSettingsAndroid =
     const AndroidInitializationSettings('ic_launcher');
 
