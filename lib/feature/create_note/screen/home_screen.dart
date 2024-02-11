@@ -58,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 0.0,
         actions: [
-
-              PopupMenuButton<String>(
+          PopupMenuButton<String>(
                 surfaceTintColor: AppColors.white,
                 onSelected: (value) {
                   if (value == 'signOut') {
@@ -83,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   imageUrl: LocalStorage.getPhotoUrl(),
                 ),
               ),
-
           const Gap(10.0)
         ],
         title: Text(
