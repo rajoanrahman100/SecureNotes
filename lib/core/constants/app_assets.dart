@@ -10,5 +10,7 @@ class AppAssets{
   //Lottie Assets
   static const String successLottie="$assetLottie/success.json";
   static const String alertLottie="$assetLottie/alert.json";
+  static const String noteImage="$assetImage/note_image.png";
+  static const String googleImage="$assetImage/google_image.png";
 
 }
