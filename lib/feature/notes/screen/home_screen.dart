@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     var arguments = Get.arguments;
-    noteController.getCreatedNote();
+    //noteController.getCreatedNote();
     if (arguments != null) {
       log("Argument Value ${arguments["arg1"]} and ${arguments["arg2"]}");
 
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SizedBox(
                   height: height,
                   width: width,
-                  child: Obx(() => noteController.noteListDataModel.value.data == null
+                  /*child: Obx(() => noteController.noteListDataModel.value.data == null
                       ? loaderWidget()
                       : ListView.separated(
                           itemCount: noteController.noteListDataModel.value.data!.length,
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           separatorBuilder: (BuildContext context, int index) {
                             return const Gap(15.0);
                           },
-                        ))),
+                        ))*/),
             )),
             CreateNoteWidget(width: width),
           ],
