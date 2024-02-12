@@ -23,6 +23,8 @@ class CreateNoteBottomSheet extends StatelessWidget {
   bool? allowEdit;
   Note? note;
 
+  bool? statusComplete;
+
   DateTime _convertTimeOfDayToDateTime(TimeOfDay timeOfDay) {
     final now = DateTime.now();
     return DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
@@ -30,6 +32,15 @@ class CreateNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    if(note!=null && note!.status=="completada"){
+      statusComplete=true;
+      print("Status True");
+    }else{
+      statusComplete=false;
+      print("Status False");
+    }
+
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
@@ -50,6 +61,7 @@ class CreateNoteBottomSheet extends StatelessWidget {
                 hintTex: "Title",
                 textEditingController: noteController.titleEditingController,
                 enableColor: AppColors.white,
+                isEnable: statusComplete==true?false:true,
                 validation: (String? value) {
                   return Validator.validateNoteTitle(value!);
                 },
@@ -61,25 +73,31 @@ class CreateNoteBottomSheet extends StatelessWidget {
                 enableColor: AppColors.white,
                 minLine: 3,
                 maxLine: 6,
+                isEnable: statusComplete==true?false:true,
                 validation: (String? value) {
                   return Validator.validateNoteContent(value!);
                 },
               ),
-              const Gap(20.0),
-              Row(
+              statusComplete==true ?const SizedBox.shrink(): const Gap(20.0),
+              statusComplete==true?Container():Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
-                        log(value!.format(context).toString());
-                        DateTime convertedDateTime = _convertTimeOfDayToDateTime(value);
-                        print('Converted DateTime: $convertedDateTime');
-                        NotificationService().scheduleNotification(
-                            title: noteController.titleEditingController.text,
-                            body: noteController.descriptionEditingController.text,
-                            scheduledNotificationDateTime: convertedDateTime);
-                      });
+
+                      if (formKey.currentState == null || formKey.currentState!.validate()){
+                        showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+                          log(value!.format(context).toString());
+                          DateTime convertedDateTime = _convertTimeOfDayToDateTime(value);
+                          print('Converted DateTime: $convertedDateTime');
+                          NotificationService().scheduleNotification(
+                              title: noteController.titleEditingController.text,
+                              body: noteController.descriptionEditingController.text,
+                              scheduledNotificationDateTime: convertedDateTime);
+                        });
+                      }
+
+
                     },
                     child: Row(
                       children: [
@@ -130,8 +148,8 @@ class CreateNoteBottomSheet extends StatelessWidget {
                       : Container(),
                 ],
               ),
-              const Gap(20.0),
-              Obx(() => PrimaryButtonWidget(
+              statusComplete==true?const SizedBox.shrink():const Gap(20.0),
+              statusComplete==true?Container():Obx(() => PrimaryButtonWidget(
                   width: width!,
                   callback: () {
                     if (formKey.currentState == null || formKey.currentState!.validate()) {
@@ -153,7 +171,7 @@ class CreateNoteBottomSheet extends StatelessWidget {
                   title: allowEdit == true ? "Update" : "Create",
                   isLoading: noteController.createLoading.value)),
               const Gap(20.0),
-              allowEdit == true
+              allowEdit == true || statusComplete==true
                   ? Obx(() => GestureDetector(
                         onTap: () {
                           noteController.deleteNote(note!.id!, context);

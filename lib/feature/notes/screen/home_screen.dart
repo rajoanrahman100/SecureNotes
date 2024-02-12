@@ -87,9 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           noteController.titleEditingController.text = data.title ?? "";
                           noteController.descriptionEditingController.text = data.description ?? "";
-                          data.status == "completada"
-                              ? null
-                              : showModalBottomSheet(
+                          showModalBottomSheet(
                                   context: context,
                                   isDismissible: true,
                                   isScrollControlled: true,

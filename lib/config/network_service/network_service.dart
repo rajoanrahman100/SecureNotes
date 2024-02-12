@@ -15,7 +15,7 @@ class HttpService {
   static header() => {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Key": "7b4e17372bmshebc41281994c4f1p105934jsn2565dd226cfa",
+        "X-RapidAPI-Key": "82aa27c558mshffcb75e2090a153p1b6d34jsn63c9fd33116a",
         "X-RapidAPI-Host": "task-manager-api3.p.rapidapi.com"
       };
 
