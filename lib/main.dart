@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       initialBinding: StoreBinding(),
       theme: theme(),
       getPages: AppPages.pages,
-      initialRoute: FirebaseAuth.instance.currentUser != null ? Routes.homePage : Routes.singIn,
+      initialRoute: FirebaseAuth.instance.currentUser != null ? Routes.homePage : Routes.singIn, // Check if user is logged in or not
     );
   }
 }

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
+import 'package:securenotes/core/constants/app_assets.dart';
 import 'package:securenotes/core/constants/app_colors.dart';
 import 'package:securenotes/core/constants/text_styles.dart';
 import 'package:securenotes/core/helper/global_widgets.dart';
 import 'package:securenotes/core/helper/size_helper.dart';
+import 'package:securenotes/core/resources/secure_storage.dart';
 import 'package:securenotes/feature/google_signin/controller/google_sign_in_controller.dart';
 import 'package:securenotes/feature/google_signin/widget/welcome_dialog.dart';
 import 'package:securenotes/feature/notes/widgets/create_note_widget.dart';
@@ -31,8 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // Receiving arguments
     var arguments = Get.arguments;
+
     noteController.getCreatedNote();
+
+    // Showing the welcome dialog
     if (arguments != null) {
       log("Argument Value ${arguments["arg1"]} and ${arguments["arg2"]}");
 
@@ -66,9 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.white,
         centerTitle: true,
         elevation: 0.0,
-        actions: [SignOutMenu(googleSignInController: googleSignInController), const Gap(10.0)],
+        actions: [
+
+          //Showing the sign out menu
+          SignOutMenu(googleSignInController: googleSignInController),
+
+
+          const Gap(10.0)
+
+        ],
         title: Text(
-          "Dashboard",
+          "Notes",
           style: bodyMedium16.copyWith(color: AppColors.kBSDark),
         ),
       ),
@@ -87,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           noteController.titleEditingController.text = data.title ?? "";
                           noteController.descriptionEditingController.text = data.description ?? "";
+
                           showModalBottomSheet(
                                   context: context,
                                   isDismissible: true,
@@ -161,10 +177,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     separatorBuilder: (BuildContext context, int index) {
                       return const Gap(15.0);
                     },
-                  ))),
+                  ))
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+
+          //Showing the secured data (user email)
+          /*SecureStorage().readSecureData(AppAssets.keyUserName).then((value) {
+            log("Show secure data $value");
+          });*/
+
+          //Showing note creation bottom sheet
           noteController.titleEditingController.clear();
           noteController.descriptionEditingController.clear();
           showModalBottomSheet(

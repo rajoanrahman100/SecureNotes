@@ -33,6 +33,9 @@ class CreateNoteBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
+    //Writing the logic to show only deletion option for completed notes
+
     if(note!=null && note!.status=="completada"){
       statusComplete=true;
       print("Status True");
@@ -86,10 +89,13 @@ class CreateNoteBottomSheet extends StatelessWidget {
                     onTap: () {
 
                       if (formKey.currentState == null || formKey.currentState!.validate()){
+
+                        // Function of Schedule Notification after setting the time.
+
                         showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
                           log(value!.format(context).toString());
                           DateTime convertedDateTime = _convertTimeOfDayToDateTime(value);
-                          print('Converted DateTime: $convertedDateTime');
+                          log('Converted DateTime: $convertedDateTime');
                           NotificationService().scheduleNotification(
                               title: noteController.titleEditingController.text,
                               body: noteController.descriptionEditingController.text,
@@ -116,6 +122,8 @@ class CreateNoteBottomSheet extends StatelessWidget {
                       ],
                     ),
                   ),
+
+                  //User can change the status(completed) of the note if only allowEdit is true
                   allowEdit == true
                       ? Obx(() => GestureDetector(
                             onTap: () {
@@ -171,6 +179,9 @@ class CreateNoteBottomSheet extends StatelessWidget {
                   title: allowEdit == true ? "Update" : "Create",
                   isLoading: noteController.createLoading.value)),
               const Gap(20.0),
+
+
+              //User can delete the note when allowEdit is true or statusComplete is true
               allowEdit == true || statusComplete==true
                   ? Obx(() => GestureDetector(
                         onTap: () {

@@ -8,6 +8,7 @@ import 'package:securenotes/core/constants/text_styles.dart';
 import 'package:securenotes/core/helper/global_widgets.dart';
 import 'package:securenotes/core/helper/local_storage.dart';
 import 'package:securenotes/core/helper/size_helper.dart';
+import 'package:securenotes/core/resources/secure_storage.dart';
 import 'package:securenotes/feature/google_signin/controller/google_sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -66,11 +67,20 @@ class SignInScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 50.0),
                         child: MaterialButton(
                           onPressed: () {
+
+
+                            //Calling Google Authentication
                             googleSignInController.googleAuthentication().then((userCredential) {
+
+
+                              //Checking if user credential is not null and save necessary data
                               if (userCredential != null) {
                                 googleSignInController.googleUserCredential.value = userCredential;
+                                SecureStorage().writeSecureData(AppAssets.keyUserName, userCredential.user!.email!);
                                 LocalStorage.saveUserName(userCredential.user!.displayName!);
                                 LocalStorage.savePhotoUrl(userCredential.user!.photoURL!);
+
+                                //Passing necessary data to home page through arguments
                                 Get.toNamed(Routes.homePage, arguments: {
                                   "arg1": googleSignInController.showDialog.value,
                                   "arg2": googleSignInController.googleUserCredential.value?.user?.photoURL,
