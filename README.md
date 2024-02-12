@@ -1,6 +1,23 @@
 # SecureNotes
 
-A note application that allows users to create, read, update, and delete CRUD notes
+SecureNotes is a Flutter application that allows users to manage their notes. It
+incorporates Google Sign-In using Firebase, uses GetX for state management and navigation,
+integrates with a mock API for fetching notes.
+
+## Features
+
+- **Google Sign-In:** Users can sign in using their Google account for a secure and seamless
+  experience.
+
+- **CRUD Operations:** Create, Read, Update, and Delete notes with ease.
+
+- **Getx State Management:** Utilizes GetX for efficient and reactive state management.
+
+- **Mock API Integration:** Fetch notes from a mock API for testing purposes.
+
+- **Notifications:** Schedule notifications for tasks that are due.
+
+- **Responsive Design:** Ensures a consistent and responsive design across iOS and Android devices.
 
 ## Packages have been using
 
