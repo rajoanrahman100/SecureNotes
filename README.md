@@ -19,6 +19,9 @@ integrates with a mock API for fetching notes.
 
 - **Responsive Design:** Ensures a consistent and responsive design across iOS and Android devices.
 
+- **Local Data Encryption:** Sensitive data stored locally is encrypted to enhance security.
+
+
 ## Packages have been using
 
 <ul>
@@ -37,7 +40,11 @@ integrates with a mock API for fetching notes.
 
 ## Mock Api
 
-<li><a href="https://rapidapi.com/fabriciomf72/api/task-manager-api3/">Task Manager Api (Free)</a></li>
+<li><a href="https://rapidapi.com/fabriciomf72/api/task-manager-api3/">Task Manager Api (Free/ 30 request a day)</a></li>
+
+## Prerequisites
+
+- Flutter SDK: [Installation Guide](https://flutter.dev/docs/get-started/install)
 
 ## Installation
 ```bash

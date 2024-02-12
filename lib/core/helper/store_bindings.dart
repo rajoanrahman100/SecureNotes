@@ -6,8 +6,10 @@ import 'package:securenotes/feature/notes/controller/note_controller.dart';
 class StoreBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => NoteController());
-    Get.lazyPut(() => GoogleSignInController());
-    Get.lazyPut(() => NetworkController());
+
+    Get.lazyPut<NoteController>(() => NoteController(), fenix: true);
+    Get.lazyPut<GoogleSignInController>(() => GoogleSignInController(), fenix: true);
+    Get.lazyPut<NetworkController>(() => NetworkController(), fenix: true);
+
   }
 }

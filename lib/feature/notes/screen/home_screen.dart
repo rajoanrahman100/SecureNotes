@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.white,
         centerTitle: true,
         elevation: 0.0,
+        automaticallyImplyLeading: false,
         actions: [
 
           //Showing the sign out menu
