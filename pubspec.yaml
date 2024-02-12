@@ -39,7 +39,6 @@ dependencies:
   get: ^4.6.6
   dio: ^5.4.0
   flutter_secure_storage: ^9.0.0
-  shimmer: ^2.0.0
   get_storage: ^2.0.3
   gap: ^3.0.1
   firebase_auth: ^4.15.3
