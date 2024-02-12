@@ -38,3 +38,7 @@ integrates with a mock API for fetching notes.
 ## Mock Api
 
 <li><a href="https://rapidapi.com/fabriciomf72/api/task-manager-api3/">Task Manager Api (Free)</a></li>
+
+## Installation
+```bash
+   git clone https://github.com/rajoanrahman100/SecureNotes.git
