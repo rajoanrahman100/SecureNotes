@@ -17,3 +17,7 @@ A note application that allows users to create, read, update, and delete CRUD
   <li><a href="https://pub.dev/packages/timezone">Timezone</a></li>
   <li><a href="https://pub.dev/packages/get_storage">Get Storage</a></li>
 </ul>
+
+## Mock Api
+
+<li><a href="https://rapidapi.com/fabriciomf72/api/task-manager-api3/">Task Manager Api (Free)</a></li>
